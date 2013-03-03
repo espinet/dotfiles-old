@@ -1,3 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/Users/espinet/Workspace/inndirectory'
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/espinet/Workspace/inndirectory/app/views/admin'
+let g:netrw_dirhist_2='/Users/espinet/Workspace/inndirectory/app/views/admin/countries'
+let g:netrw_dirhist_3='/Users/espinet/Workspace/inndirectory/app/views/admin'
+let g:netrw_dirhist_4='/Users/espinet/Workspace/inndirectory/app/views'
+let g:netrw_dirhist_5='/Users/espinet/Workspace/inndirectory/app/views/layouts'
+let g:netrw_dirhist_6='/Users/espinet/Workspace/inndirectory'
+let g:netrw_dirhist_7='/Users/espinet/Workspace'
+let g:netrw_dirhist_8='/Users/espinet'
+let g:netrw_dirhist_9='/Users'
