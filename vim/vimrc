@@ -1,0 +1,70 @@
+" ---------- GUI ----------
+set guifont=Monaco:h14
+colorscheme molokai
+
+" Syntax highlighting
+syntax enable
+
+" Replace tab with arrow
+" Replace eol with not
+set list
+set listchars=tab:▸\ ,eol:¬
+
+" Add mouse interactivity to terminal
+set mouse=a
+
+" Resize windows depending on context
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+
+" Remove toolbar from MacVim
+if has("gui_running")
+  set guioptions=egmrt
+endif
+
+" Reload file when updated.
+set autoread
+
+" ---------- KEY BINDINGS ----------
+let mapleader = ","
+
+" Rails shortcuts for models/views/controllers/helpers
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+
+" Rails shortcut for Gemfile
+map <leader>gg :topleft 16 :split Gemfile<cr>
+
+" Switch between the last 2 files
+noremap <leader><leader> <c-^>
+
+
+" ---------- OTHER ----------
+set hidden
+set smartcase                 " Ignore case if search is lower-case
+set hlsearch                  " Highlight search terms
+set incsearch                 " Show search matches as you type
+set number                    " Show line numbers
+set tabstop=2                 " Add to space tabs
+set shiftwidth=2
+set expandtab
+set nowrap                    " Turn of word-wrap
+set autoindent
+set history=1000
+set undolevels=1000
+set wildignore=*.swp
+set title
+set visualbell
+set noerrorbells
+set nobackup
+set noswapfile
+
+filetype plugin indent on     " Load indent files to automatically do language-dependent indenting
+
+" ---------- PATHOGEN INSTALL ----------
+call pathogen#infect()
+call pathogen#helptags()
