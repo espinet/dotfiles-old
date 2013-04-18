@@ -35,7 +35,7 @@ endif
 set autoread
 
 " ---------- KEY BINDINGS ----------
-let mapleader = ","
+let mapleader = "/<space>"
 
 " Rails shortcuts for models/views/controllers/helpers
 map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
@@ -47,7 +47,7 @@ map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
 map <leader>gg :topleft 16 :split Gemfile<cr>
 
 " Switch between the last 2 files
-noremap <leader><leader> <c-^>
+noremap <leader>pf <c-^>
 
 
 " ---------- OTHER ----------
