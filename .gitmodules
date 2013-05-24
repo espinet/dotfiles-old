@@ -13,6 +13,3 @@
 [submodule "vim/vim/bundle/command-t"]
 	path = vim/vim/bundle/command-t
 	url = git://github.com/wincent/Command-T.git
-[submodule "vim/vim/bundle/youcompleteme"]
-	path = vim/vim/bundle/youcompleteme
-	url = git://github.com/Valloric/YouCompleteMe.git

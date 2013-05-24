@@ -1,3 +1,6 @@
+" TODO Add filepath copy key binding.
+" TODO Add kill whitespace: command! KillWhitespace :normal :%s/ *$//g<cr><c-o><cr>
+
 " ---------- GUI ----------
 set guifont=Monaco:h14
 colorscheme molokai
@@ -9,9 +12,6 @@ syntax enable
 " Replace eol with not
 set list
 set listchars=tab:▸\ ,eol:¬
-
-" Add mouse interactivity to terminal
-set mouse=a
 
 " Pipe cursor for insert mode in vi.
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -26,19 +26,11 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
-" Remove toolbar from MacVim
-if has("gui_running")
-  set guioptions=egmrt
-endif
-
 " Reload file when updated.
 set autoread
 
 " ---------- KEY BINDINGS ----------
 let mapleader = "\<space>"
-
-" TODO Add filepath copy key binding.
-" TODO Add kill whitespace: command! KillWhitespace :normal :%s/ *$//g<cr><c-o><cr>
 
 " Rails shortcuts for models/views/controllers/helpers
 map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
@@ -49,20 +41,20 @@ map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
 " Rails shortcut for Gemfile
 map <leader>gg :topleft 16 :split Gemfile<cr>
 
-" Switch between the last 2 files
-noremap <leader>pf <c-^>
-
+map <C-l> :bnext<CR>
+map <C-h> :bprev<CR>
 
 " ---------- OTHER ----------
-set hidden
+set backspace=2               " Make backspace work normally in insert mode
 set smartcase                 " Ignore case if search is lower-case
 set hlsearch                  " Highlight search terms
 set incsearch                 " Show search matches as you type
 set number                    " Show line numbers
+set rnu                       " Relative line numbers
 set tabstop=2                 " Add to space tabs
+set nowrap                    " Turn of word-wrap
 set shiftwidth=2
 set expandtab
-set nowrap                    " Turn of word-wrap
 set autoindent
 set history=1000
 set undolevels=1000
@@ -72,6 +64,8 @@ set visualbell
 set noerrorbells
 set nobackup
 set noswapfile
+" TODO switch Netrw with NerdTree
+"set hidden                   " Allow buffer switching without saving file
 
 filetype plugin indent on     " Load indent files to automatically do language-dependent indenting
 
