@@ -4,6 +4,8 @@
 " ---------- GUI ----------
 set guifont=Monaco:h14
 colorscheme molokai
+set colorcolumn=78
+set mouse=a
 
 " Syntax highlighting
 syntax enable
