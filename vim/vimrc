@@ -1,5 +1,4 @@
-" TODO Add filepath copy key binding.
-" TODO Add kill whitespace: command! KillWhitespace :normal :%s/ *$//g<cr><c-o><cr>
+" TODO Add tag search and gitignore tag indexing
 
 " ---------- GUI ----------
 set guifont=Monaco:h14
@@ -15,18 +14,15 @@ syntax enable
 set list
 set listchars=tab:▸\ ,eol:¬
 
+set foldmethod=indent
+set foldlevelstart=20
+
 " Pipe cursor for insert mode in vi.
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " Cancel command-t search using esc.
-" let g:CommandTCancelMap=['<ESC>']
-
-" Resize windows depending on context
-set winwidth=84
-set winheight=5
-set winminheight=5
-set winheight=999
+let g:CommandTCancelMap=['<ESC>']
 
 " Reload file when updated.
 set autoread
@@ -34,14 +30,20 @@ set autoread
 " ---------- KEY BINDINGS ----------
 let mapleader = "\<space>"
 
-" Rails shortcuts for models/views/controllers/helpers
-map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+" Easymotion navigation
+let g:EasyMotion_leader_key = '<Leader>'
+let g:EasyMotion_mapping_t = '' " Unused mapping competing with Command-t
+let g:EasyMotion_mapping_T = '' " Unused mapping competing with Command-t
 
-" Rails shortcut for Gemfile
-map <leader>gg :topleft 16 :split Gemfile<cr>
+nmap <leader>cp :let @* = expand("%:p")<CR>
+
+function! ClearTrailingSpace()
+  let lineNumber = line(".")
+  %s/\ *$//g "\<CR>"
+  let @/ = "" "\<CR>"
+  exe ":" lineNumber
+endfunction
+nmap <leader>ds :call ClearTrailingSpace()<CR>
 
 map <C-l> :bnext<CR>
 map <C-h> :bprev<CR>
@@ -66,8 +68,7 @@ set visualbell
 set noerrorbells
 set nobackup
 set noswapfile
-" TODO switch Netrw with NerdTree
-"set hidden                   " Allow buffer switching without saving file
+set hidden                   " Allow buffer switching without saving file
 
 filetype plugin indent on     " Load indent files to automatically do language-dependent indenting
 
