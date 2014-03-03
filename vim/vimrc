@@ -1,13 +1,60 @@
-" TODO Add tag search and gitignore tag indexing
+" SETUP
+"   Vundle
+"     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+"     vim +BundleInstall +qall
+"   Command-t
+"     :ruby puts RUBY_VERSION
+"     cd ../bundle/Command-T/ruby/command-t
+"     rbenv local system
+"     ruby extconf.rb
+"     make
 
-" ---------- GUI ----------
+
+
+" TODO
+" Add tag search and gitignore tag indexing
+
+
+
+" Vundle setup
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Bundles
+" From GitHub scripts: Bundle 'Lokaltog/vim-easymotion'
+" From http://vim-scripts.org/vim/scripts.html: Bundle 'FuzzyFinder'
+" Not on GitHub: Bundle 'git://git.wincent.com/command-t.git'
+" Local machine: Bundle 'file:///home/gmarik/path/to/plugin'
+Bundle 'gmarik/vundle'
+
+Bundle 'tomasr/molokai'
+Bundle 'scrooloose/syntastic'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'myusuf3/numbers.vim'
+
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Shougo/unite.vim'
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'mileszs/ack.vim'
+
+filetype plugin indent on
+
+
+" Theme
 set guifont=Monaco:h14
 colorscheme molokai
 set colorcolumn=78
-set mouse=a
 
-" Syntax highlighting
-syntax enable
+" Speed up git-gutter
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+
+syntax enable " Syntax highlighting
 
 " Replace tab with arrow
 " Replace eol with not
@@ -22,21 +69,33 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " Cancel command-t search using esc.
-let g:CommandTCancelMap=['<ESC>']
+" let g:CommandTCancelMap=['<ESC>'] # Not using Command-T anymore
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Reload file when updated.
 set autoread
 
 " ---------- KEY BINDINGS ----------
-let mapleader = "\<space>"
+let mapleader = " "
 
-" Easymotion navigation
+set mouse=a
+
+" Easymotion config
 let g:EasyMotion_leader_key = '<Leader>'
-let g:EasyMotion_mapping_t = '' " Unused mapping competing with Command-t
-let g:EasyMotion_mapping_T = '' " Unused mapping competing with Command-t
+let g:EasyMotion_mapping_t = ''
+let g:EasyMotion_mapping_T = ''
 
+" Unite config
+noremap <leader>t :Unite -start-insert file<Enter>
+
+" Buffer cycling
+map <C-l> :bnext<CR>
+map <C-h> :bprev<CR>
+
+" Copy currenty filepath to clipboard
 nmap <leader>cp :let @* = expand("%:p")<CR>
 
+" Delete trailing whitespace
 function! ClearTrailingSpace()
   let lineNumber = line(".")
   %s/\ *$//g "\<CR>"
@@ -45,16 +104,11 @@ function! ClearTrailingSpace()
 endfunction
 nmap <leader>ds :call ClearTrailingSpace()<CR>
 
-map <C-l> :bnext<CR>
-map <C-h> :bprev<CR>
-
 " ---------- OTHER ----------
 set backspace=2               " Make backspace work normally in insert mode
 set smartcase                 " Ignore case if search is lower-case
 set hlsearch                  " Highlight search terms
 set incsearch                 " Show search matches as you type
-set number                    " Show line numbers
-set rnu                       " Relative line numbers
 set tabstop=2                 " Add to space tabs
 set nowrap                    " Turn of word-wrap
 set shiftwidth=2
