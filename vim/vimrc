@@ -2,12 +2,8 @@
 "   Vundle
 "     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 "     vim +BundleInstall +qall
-"   Command-t
-"     :ruby puts RUBY_VERSION
-"     cd ../bundle/Command-T/ruby/command-t
-"     rbenv local system
-"     ruby extconf.rb
-"     make
+"   Tagbar
+"     brew install ctags
 
 
 
@@ -38,6 +34,9 @@ Bundle 'myusuf3/numbers.vim'
 
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Shougo/unite.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
 
 Bundle 'tpope/vim-fugitive'
 Bundle 'mileszs/ack.vim'
@@ -48,11 +47,12 @@ filetype plugin indent on
 " Theme
 set guifont=Monaco:h14
 colorscheme molokai
-set colorcolumn=78
+set colorcolumn=79
 
-" Speed up git-gutter
+" Git settings
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
+let g:fugitive_github_domains = ['https://git.autodesk.com']
 
 syntax enable " Syntax highlighting
 
@@ -80,10 +80,12 @@ let mapleader = " "
 
 set mouse=a
 
-" Easymotion config
+" Navigation
 let g:EasyMotion_leader_key = '<Leader>'
 let g:EasyMotion_mapping_t = ''
 let g:EasyMotion_mapping_T = ''
+nmap <F1> :TagbarToggle<CR>
+let g:tagbar_width = winwidth(0) - 84
 
 " Unite config
 noremap <leader>t :Unite -start-insert file<Enter>
