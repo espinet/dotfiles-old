@@ -1,15 +1,31 @@
 " SETUP
+"   Link dotfiles
+"     ln -s /vim/.vim .vim
+"     ln -s /vim/.vimrc .vimrc
 "   Vundle
 "     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 "     vim +BundleInstall +qall
 "   Tagbar
 "     brew install ctags
+"   JSHint
+"     brew install node
+"     sudo npm install -g jshint
+"     ln -s /jshintrc .jshintrc
 
 
 
 " TODO
-" Add tag search and gitignore tag indexing
-
+" Setup Unite for
+"   open buffers
+"   filename search
+"   file content search
+"   register search
+" Learn Fugative
+" Learn Tagbar
+" Learn code folding
+" Check out Tabularize
+" Look into snippets, https://github.com/spf13/snipmate-snippets
+" Split .vimrc into multiple files
 
 
 " Vundle setup
@@ -26,33 +42,46 @@ call vundle#rc()
 " Local machine: Bundle 'file:///home/gmarik/path/to/plugin'
 Bundle 'gmarik/vundle'
 
+Bundle 'xolox/vim-misc'
+
 Bundle 'tomasr/molokai'
-Bundle 'scrooloose/syntastic'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'myusuf3/numbers.vim'
+Bundle 'plasticboy/vim-markdown'
+
+Bundle 'scrooloose/syntastic'
+Bundle 'walm/jshint.vim'
+
+Bundle 'rstacruz/sparkup'
+Bundle 'tpope/vim-surround'
+Bundle 'msanders/snipmate.vim'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'scrooloose/nerdcommenter'
 
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'Shougo/unite.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/nerdtree'
+Bundle 'mileszs/ack.vim'
+Bundle 'Shougo/unite.vim'
 
 Bundle 'tpope/vim-fugitive'
-Bundle 'mileszs/ack.vim'
+Bundle 'gregsexton/gitv'
+Bundle 'airblade/vim-gitgutter'
+
+Bundle 'ivalkeen/vim-simpledb'
 
 filetype plugin indent on
 
 
 " Theme
-set guifont=Monaco:h14
+set guifont=Monaco:h10
 colorscheme molokai
 set colorcolumn=79
 
 " Git settings
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-let g:fugitive_github_domains = ['https://git.autodesk.com']
 
 syntax enable " Syntax highlighting
 
@@ -68,10 +97,6 @@ set foldlevelstart=20
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" Cancel command-t search using esc.
-" let g:CommandTCancelMap=['<ESC>'] # Not using Command-T anymore
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 " Reload file when updated.
 set autoread
 
@@ -85,7 +110,10 @@ let g:EasyMotion_leader_key = '<Leader>'
 let g:EasyMotion_mapping_t = ''
 let g:EasyMotion_mapping_T = ''
 nmap <F1> :TagbarToggle<CR>
-let g:tagbar_width = winwidth(0) - 84
+nmap <F2> :NERDTreeToggle<CR>
+let g:tagbar_width = 34
+let g:NERDTreeWinSize = 34
+let g:NERDTreeWinPos = "right"
 
 " Unite config
 noremap <leader>t :Unite -start-insert file<Enter>
@@ -125,9 +153,3 @@ set noerrorbells
 set nobackup
 set noswapfile
 set hidden                   " Allow buffer switching without saving file
-
-filetype plugin indent on     " Load indent files to automatically do language-dependent indenting
-
-" ---------- PATHOGEN INSTALL ----------
-call pathogen#infect()
-call pathogen#helptags()
