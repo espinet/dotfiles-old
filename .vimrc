@@ -2,16 +2,15 @@
 "   Link dotfiles
 "     ln -s /vim/.vim .vim
 "     ln -s /vim/.vimrc .vimrc
-"   Vundle
-"     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-"     vim +BundleInstall +qall
 "   Tagbar
 "     brew install ctags
 "   JSHint
 "     brew install node
 "     sudo npm install -g jshint
 "     ln -s /jshintrc .jshintrc
-
+"   Vundle
+"     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+"     vim +BundleInstall +qall
 
 
 " TODO
@@ -20,11 +19,6 @@
 "   filename search
 "   file content search
 "   register search
-" Learn Fugative
-" Learn Tagbar
-" Learn code folding
-" Check out Tabularize
-" Look into snippets, https://github.com/spf13/snipmate-snippets
 " Split .vimrc into multiple files
 
 
@@ -50,13 +44,14 @@ Bundle 'plasticboy/vim-markdown'
 
 Bundle 'scrooloose/syntastic'
 Bundle 'walm/jshint.vim'
+Bundle 'Shutnik/jshint2.vim'
 
-Bundle 'rstacruz/sparkup'
+Bundle 'tristen/vim-sparkup'
 Bundle 'tpope/vim-surround'
+" Look into snippets, https://github.com/spf13/snipmate-snippets
 Bundle 'msanders/snipmate.vim'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'scrooloose/nerdcommenter'
 
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'xolox/vim-easytags'
@@ -73,7 +68,6 @@ Bundle 'ivalkeen/vim-simpledb'
 
 filetype plugin indent on
 
-
 " Theme
 set guifont=Monaco:h10
 colorscheme molokai
@@ -85,8 +79,7 @@ let g:gitgutter_eager = 0
 
 syntax enable " Syntax highlighting
 
-" Replace tab with arrow
-" Replace eol with not
+" Replace tab with arrow and eol with not
 set list
 set listchars=tab:▸\ ,eol:¬
 
