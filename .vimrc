@@ -1,148 +1,146 @@
-" SETUP
-"   Link dotfiles
-"     ln -s /vim/.vim .vim
-"     ln -s /vim/.vimrc .vimrc
-"   Tagbar
-"     brew install ctags
-"   JSHint
-"     brew install node
-"     sudo npm install -g jshint
-"     ln -s /jshintrc .jshintrc
-"   Vundle
-"     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-"     vim +BundleInstall +qall
+set nocompatible " don't bother with vi compatibility
 
+syntax enable " enable syntax highlighting
 
-" TODO
-" Setup Unite for
-"   open buffers
-"   filename search
-"   file content search
-"   register search
-" Split .vimrc into multiple files
+colorscheme molokai
 
-
-" Vundle setup
+" configure Vundle
 set nocompatible
+filetype on
 filetype off
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" Bundles
-" From GitHub scripts: Bundle 'Lokaltog/vim-easymotion'
-" From http://vim-scripts.org/vim/scripts.html: Bundle 'FuzzyFinder'
-" Not on GitHub: Bundle 'git://git.wincent.com/command-t.git'
-" Local machine: Bundle 'file:///home/gmarik/path/to/plugin'
-Bundle 'gmarik/vundle'
-
-Bundle 'xolox/vim-misc'
-
-Bundle 'tomasr/molokai'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'plasticboy/vim-markdown'
-
-Bundle 'scrooloose/syntastic'
-Bundle 'walm/jshint.vim'
-Bundle 'Shutnik/jshint2.vim'
-
-Bundle 'tristen/vim-sparkup'
-Bundle 'tpope/vim-surround'
-" Look into snippets, https://github.com/spf13/snipmate-snippets
-Bundle 'msanders/snipmate.vim'
-Bundle 'Shougo/neocomplcache.vim'
-Bundle 'kchmck/vim-coffee-script'
-
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'xolox/vim-easytags'
-Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/nerdtree'
-Bundle 'mileszs/ack.vim'
-Bundle 'Shougo/unite.vim'
-
-Bundle 'tpope/vim-fugitive'
-Bundle 'gregsexton/gitv'
-Bundle 'airblade/vim-gitgutter'
-
-Bundle 'ivalkeen/vim-simpledb'
+" install Vundle bundles
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+endif
 
 filetype plugin indent on
 
-" Theme
-set guifont=Monaco:h10
-colorscheme molokai
-set colorcolumn=79
+set autoindent
+set autoread " reload files when changed on disk, i.e. via `git checkout`
+set backupcopy=yes " see :help crontab
+set backspace=2 " make backspace work normally in insert mode
+set colorcolumn=100
+set clipboard=unnamed " yank and paste with the system clipboard
+set directory-=. " don't store swapfiles in the current directory
+set encoding=utf-8
+set expandtab
+" set foldmethod=syntax " kind of folding applies in the current window
+set foldlevelstart=1000
+set guifont=Meslo\ LG\ S\ DZ\ Regular\ for\ Powerline
+set hidden " keep the changes to the buffer without writing them to the file
+set history=1000
+set hlsearch " highlight search terms
+set ignorecase " case-insensitive search
+set incsearch " search as you type
+set laststatus=2 " always show statusline
+set list " show trailing whitespace
+set listchars=tab:▸\ ,eol:¬ " replace tab with arrow and eol with not
+set mouse=a " enable basic mouse behavior such as resizing buffers.
+set noerrorbells " no beep occurs when an error message is displayed
+set noswapfile
+set nowrap " turn of word-wrap
+set number " display line numbers
+set ruler " show where you are
+set scrolloff=3 " show context above/below cursorline
+set scrolljump=5 " lines to scroll when cursor leaves screen
+set showmatch
+set shiftwidth=2 " show context above/below cursorline
+set showcmd
+set smartcase " ignore case if search is lower-case
+set softtabstop=2 " insert mode tab and backspace use 2 spaces
+set splitbelow " Puts new split windows to the bottom of the current
+set splitright " puts new vsplit windows to the right of the current
+set t_Co=256
+set tabstop=8 " actual tabs occupy 8 characters
+set title " make xterm inherit the title from Vim
+set undolevels=1000
+set visualbell " use visual bell instead of beeping when doing something wrong
+set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
+set wildmenu " show a navigable menu for tab completion
+set wildmode=longest,list,full
 
-" Git settings
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
+if exists('$TMUX')  " support resizing in tmux
+  set ttymouse=xterm2
+endif
 
-syntax enable " Syntax highlighting
-
-" Replace tab with arrow and eol with not
-set list
-set listchars=tab:▸\ ,eol:¬
-
-set foldmethod=indent
-set foldlevelstart=20
-
-" Pipe cursor for insert mode in vi.
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" Reload file when updated.
-set autoread
-
-" ---------- KEY BINDINGS ----------
 let mapleader = " "
 
-set mouse=a
+if exists('$TMUX') " fix cursor in TMUX
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else " fix cursor in term
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
-" Navigation
-let g:EasyMotion_leader_key = '<Leader>'
-let g:EasyMotion_mapping_t = ''
-let g:EasyMotion_mapping_T = ''
-nmap <F1> :TagbarToggle<CR>
+autocmd BufRead,BufNewFile *.fdoc set filetype=yaml " fdoc is yaml
+autocmd BufRead,BufNewFile *.md set filetype=markdown " md is markdown
+autocmd BufRead,BufNewFile *.md set spell " add spell correction to markdown
+autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd VimResized * :wincmd = " automatically rebalance windows on vim resize
+
+" in case you forgot to sudo
+cmap w!! %!sudo tee > /dev/null %
+
+" SHORTCUTS
+" misc
+nmap <silent><leader>cp :let @* = expand("%:p")<CR>
+nmap <silent><C-l> :bnext<CR>
+nmap <silent><C-h> :bprev<CR>
+imap jk <Esc>
+imap kj <Esc>
+
+" nerdtree
 nmap <F2> :NERDTreeToggle<CR>
-let g:tagbar_width = 34
+
+" tagbar
+nmap <F1> :TagbarToggle<CR>
+
+" gitgutter
+nmap <Leader>hn <Plug>GitGutterNextHunk
+nmap <Leader>hp <Plug>GitGutterPrevHunk
+nmap <Leader>hs <Plug>GitGutterStageHunk
+nmap <Leader>hr <Plug>GitGutterRevertHunk
+
+" numbers
+
+" SETTINGS
+" gitgutter
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+let g:gitgutter_enabled = 1
+let g:gitgutter_signs = 1
+let g:gitgutter_map_keys = 1
+let g:gitgutter_highlight_lines = 0
+
+" nerdtree
 let g:NERDTreeWinSize = 34
 let g:NERDTreeWinPos = "right"
+let g:NERDTreeShowHidden = 1
 
-" Unite config
-noremap <leader>t :Unite -start-insert file<Enter>
+" tagbar
+let g:tabular_loaded = 1
+let g:tagbar_width = 34
 
-" Buffer cycling
-map <C-l> :bnext<CR>
-map <C-h> :bprev<CR>
+" unite
 
-" Copy currenty filepath to clipboard
-nmap <leader>cp :let @* = expand("%:p")<CR>
+" numbers
+let g:enable_numbers = 1
+let g:numbers_exclude = ['tagbar','nerdtree']
 
-" Delete trailing whitespace
-function! ClearTrailingSpace()
+" ack
+let g:ackprg = 'ag --nogroup --nocolor --column' " use ag instead of ack
+
+" powerline
+set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim/
+
+" functions
+function! StripTrailingWhitespace()
   let lineNumber = line(".")
   %s/\ *$//g "\<CR>"
   let @/ = "" "\<CR>"
   exe ":" lineNumber
 endfunction
-nmap <leader>ds :call ClearTrailingSpace()<CR>
-
-" ---------- OTHER ----------
-set backspace=2               " Make backspace work normally in insert mode
-set smartcase                 " Ignore case if search is lower-case
-set hlsearch                  " Highlight search terms
-set incsearch                 " Show search matches as you type
-set tabstop=2                 " Add to space tabs
-set nowrap                    " Turn of word-wrap
-set shiftwidth=2
-set expandtab
-set autoindent
-set history=1000
-set undolevels=1000
-set wildignore=*.swp
-set title
-set visualbell
-set noerrorbells
-set nobackup
-set noswapfile
-set hidden                   " Allow buffer switching without saving file
