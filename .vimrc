@@ -4,17 +4,39 @@ syntax enable " enable syntax highlighting
 
 colorscheme molokai
 
-" configure Vundle
-set nocompatible
-filetype on
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
-" install Vundle bundles
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
+Plug 'xolox/vim-misc'
+Plug 'tomasr/molokai'
+Plug 'tomasr/molokai'
+Plug 'myusuf3/numbers.vim'
+Plug 'plasticboy/vim-markdown'
+
+Plug 'scrooloose/syntastic'
+Plug 'walm/jshint.vim'
+Plug 'Shutnik/jshint2.vim'
+
+Plug 'tristen/vim-sparkup'
+Plug 'tpope/vim-surround'
+Plug 'msanders/snipmate.vim'
+" Plug 'spf13/snipmate-snippets'
+Plug 'Shougo/neocomplete.vim'
+Plug 'kchmck/vim-coffee-script'
+
+Plug 'Lokaltog/vim-easymotion'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
+Plug 'scrooloose/nerdtree'
+Plug 'mileszs/ack.vim'
+Plug 'Shougo/unite.vim'
+
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+Plug 'airblade/vim-gitgutter'
+
+Plug 'ivalkeen/vim-simpledb'
+
+call plug#end()
 
 filetype plugin indent on
 
